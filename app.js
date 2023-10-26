@@ -1,5 +1,5 @@
 //carregando modulos
-    const express = require ('express')
+    const express = require ('express')()
     const handlebars = require('express-handlebars')
     const bodyParser = require('body-parser')
     const app = express()
@@ -28,3 +28,4 @@ const PORT = 8081
 app.listen(PORT, () => {
     console.log('Servidor rodando na URL http://localhost:8081')
 })
+
