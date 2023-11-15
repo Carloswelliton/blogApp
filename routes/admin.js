@@ -1,17 +1,21 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 
 router.get('/', (req,res) => {
     res.render("admin/index")
-})
+});
 
 router.get('/posts', (req, res) => {
-    res.send('Pagina de posts!')
-})
+    res.render('admin/posts')
+});
 
 router.get('/categorias', (req,res) => {
-    res.send("Pagina de categorias!")
+    res.render("admin/categorias")
+});
+
+router.get('/categorias/add', (req,res) =>{
+    res.render('admin/addcategoria')
 })
 
 
-module.exports = router
+module.exports = router;
