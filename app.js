@@ -15,8 +15,8 @@
     app.engine('handlebars', handlebars.engine({defaultLayout: 'main'}));
     app.set('view engine', 'handlebars');
     //Mongoose
-        mongoose.Promise = global.Promise;
-        mongoose.connect("mongodb://127.0.0.1:27017/blogapp").then(() => {
+        mongoose.Promise = global.Promise
+        mongoose.connect("mongodb://127.0.0.1:27017/blogapp", {useNewUrlParser: true}).then(() => {
             console.log("Conectado ao Mongo")
         }).catch((err) => {
             console.log("Erro ao se conectar", err)
@@ -26,7 +26,7 @@
 
 //rotas (sempre chamar embaixo das configurações)
     app.get('/', (req, res) => {
-        res.send("Pagina principal!");
+        res.send("Pagina principal!")
     })
     app.use('/admin', admin);
 
