@@ -35,7 +35,7 @@
 
     //Mongoose
         mongoose.Promise = global.Promise
-        mongoose.connect("mongodb://127.0.0.1:27017/blogapp", {useNewUrlParser: true}).then(() => 
+        mongoose.connect("mongodb://127.0.0.1:27017/blogapp").then(() => 
         {
             console.log("Conectado ao Mongo")
         }).catch((err) => 
@@ -53,7 +53,7 @@
 //rotas (sempre chamar embaixo das configurações)
     app.get('/', (req, res) => 
     {
-        res.send("Pagina principal!")
+        res.redirect("/admin")
     })
     app.use('/admin', admin);
 
