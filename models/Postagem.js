@@ -22,5 +22,11 @@ const Postagem = new Schema({
          type: Schema.Types.ObjectId,
         ref: "categorias",
         required: true
+    },
+    data: {
+        type: Date,
+        default: Date.now()
     }
 })
+
+mongoose.model('postagens', Postagem)
