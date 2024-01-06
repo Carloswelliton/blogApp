@@ -53,7 +53,11 @@
 //rotas (sempre chamar embaixo das configurações)
     app.get('/', (req, res) => 
     {
-        res.redirect("/admin")
+        res.render('index')
+    })
+
+    app.get('/post', (req, res) => {
+        res.send('Lista de Posts')
     })
     app.use('/admin', admin);
 
