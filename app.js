@@ -10,6 +10,8 @@
     const flash = require('connect-flash');
     require("./models/Postagem")
     const Postagem = mongoose.model("postagens")
+    require('./models/Categoria')
+    const Categoria = mongoose.model('categorias')
 
 // configurações
     //Sessão
@@ -64,10 +66,44 @@
     })
 
     app.get('/postagem/:slug', (req, res) => {
-        Postagem.findOne({slug: req.params.slug}).then((postagem) => {
+        Postagem.findOne({slug: req.params.slug}).lean().then((postagem) => {
             if(postagem){
-
+                res.render('postagem/index', {postagem: postagem})
+            }else{
+                req.flash('error_msg', 'Essa postagem não exite!')
+                res.redirect('/')
             }
+        }).catch((err) => {
+            req.flasj('error_msg', 'Houve um erro interno')
+            res.redirect('/')
+        })
+    })
+
+    app.get('/categorias', (req, res) => {
+        Categoria.find().lean().then((categorias) => {
+            res.render('categorias/index', {categorias: categorias})
+        }).catch((erro) => {
+            req.flash('error_msg', 'Houve um erro interno ao listar as categorias')
+            res.redirect('/')
+        })
+    })
+
+    app.get('/cateorias/:slug', (req, res) => {
+        Categoria.findOne({slug: req.params.slug}).lean().then((categoria) => {
+            if(categoria){
+                Postagem.find({categoria: categoria._id}).then((postagens) => {
+                    res.render('categorias/postagens', {postagens: postagens, categoria: categoria})
+                }).catch((err) => {
+                    req.flash('error_msg', "Houve um erro ao listar os posts!")
+                    res.redirect('/')
+                })
+            }else{
+                req.flash('error_msg', "Esta categoria não existe")
+                res.redirect('/')
+            }
+        }).catch((err) => {
+            req.flash('error_msg', 'Houve um erro interno ao carregar a página desta categoria')
+            res.redirect('/')
         })
     })
 
