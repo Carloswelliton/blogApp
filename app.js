@@ -88,17 +88,21 @@
         })
     })
 
-    app.get('/cateorias/:slug', (req, res) => {
+    app.get('/categorias/:slug', (req, res) => {
         Categoria.findOne({slug: req.params.slug}).lean().then((categoria) => {
             if(categoria){
-                Postagem.find({categoria: categoria._id}).then((postagens) => {
+
+                Postagem.find({categoria: categoria._id}).lean().then((postagens) => {
+
                     res.render('categorias/postagens', {postagens: postagens, categoria: categoria})
+
                 }).catch((err) => {
-                    req.flash('error_msg', "Houve um erro ao listar os posts!")
+                    req.flash('error_msg', 'Houve um erro ao listar os posts!')
                     res.redirect('/')
                 })
+
             }else{
-                req.flash('error_msg', "Esta categoria não existe")
+                req.flash('error_msg', 'Esta categoria não existe')
                 res.redirect('/')
             }
         }).catch((err) => {
