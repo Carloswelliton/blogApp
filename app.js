@@ -12,6 +12,7 @@
     const Postagem = mongoose.model("postagens")
     require('./models/Categoria')
     const Categoria = mongoose.model('categorias')
+    const usuarios = require('./routes/usuario')
 
 // configurações
     //Sessão
@@ -119,6 +120,7 @@
         res.send('Lista de Posts')
     })
     app.use('/admin', admin);
+    app.use('/usuarios', usuarios);
 
 
 //outros
