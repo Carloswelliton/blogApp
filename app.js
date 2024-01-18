@@ -113,7 +113,7 @@
     })
 
     app.get('/404', (req, res) => {
-        res.send('Erro 404, Página não encontrada')
+        res.render('erro404/erro')
     })
 
     app.get('/post', (req, res) => {

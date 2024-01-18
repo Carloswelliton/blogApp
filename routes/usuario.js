@@ -52,9 +52,9 @@ router.post('/registro', (req,res) => {
                         
                         novoUsuario.senha = hash
 
-                        novoUsuario.save().then(() => {
+                        Usuario.save(novoUsuario).then(() => {
                             req.flash('success_msg', 'usuário criado com sucesso!')
-                            res.redirect('/')
+                            res.redirect('/usuarios/registro')
                         }).catch((err) => {
                             req.flash('error_msg', 'O erro está aqui '+ err)
                             res.redirect('/usuarios/registro')
@@ -65,7 +65,7 @@ router.post('/registro', (req,res) => {
             }
         }).catch((err) => {
             req.flash('error_msg', 'Houve um erro interno')
-            res.redirect('/')
+            res.redirect('/usuarios/registro')
         })
     }
 })
