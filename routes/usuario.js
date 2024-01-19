@@ -3,7 +3,8 @@ const router = express.Router()
 const mongoose = require('mongoose')
 require('../models/Usuario')
 const Usuario = mongoose.model('usuarios')
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcrypt')   
+
 
 router.get('/registro', (req, res) => {
     res.render('usuarios/registro')
@@ -50,11 +51,11 @@ router.post('/registro', (req,res) => {
                             res.redirect('/')
                         }
                         
-                        novoUsuario.senha = hash
+                        novoUsuario.senha = hash 
 
-                        Usuario.save(novoUsuario).then(() => {
+                        novoUsuario.save().then(() => {
                             req.flash('success_msg', 'usuário criado com sucesso!')
-                            res.redirect('/usuarios/registro')
+                            res.redirect('/')
                         }).catch((err) => {
                             req.flash('error_msg', 'O erro está aqui '+ err)
                             res.redirect('/usuarios/registro')
@@ -65,9 +66,13 @@ router.post('/registro', (req,res) => {
             }
         }).catch((err) => {
             req.flash('error_msg', 'Houve um erro interno')
-            res.redirect('/usuarios/registro')
+            res.redirect('/')
         })
     }
+})
+
+router.get('/login', (req, res) => {
+    res.render('usuarios/login')
 })
 
 module.exports = router
