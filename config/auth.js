@@ -29,11 +29,13 @@ module.exports = function(passport){
         done(null, usuario.id)
     })
 
-    passport.deserializeUser((id, done) => {
-        Usuario.findById(id, (erro, usuario) => {
-            done(erro, usuario)
-        })
-    })
+    passport.deserializeUser(function(id, done) {
+        Usuario.findOne({where:{id:id}}).then((usuario) => {
+            done(null, usuario);
+        }).catch((err) => {
+            done(err, null);
+        });
+      })
 
 
 
